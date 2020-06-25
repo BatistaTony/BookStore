@@ -1,6 +1,8 @@
 import Layout from "../../components/layout";
 import Book from "./../../components/book";
 import { useState } from "react";
+import absoluteUrl from 'next-absolute-url'
+
 
 export default function Index({ books }) {
   const [title, setTitle] = useState("");
@@ -39,11 +41,12 @@ export default function Index({ books }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({req}) {
 
-  const url  = new Request('/api/books')
 
-  const res = await fetch(url).then((res) =>
+  const { origin } = await  absoluteUrl(req, req.headers.host)
+ 
+  const res = await fetch(origin+"/api/books").then((res) =>
     res.json()
   );
 

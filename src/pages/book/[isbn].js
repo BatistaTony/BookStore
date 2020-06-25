@@ -1,5 +1,6 @@
 import Layout from "../../../components/layout";
 import $ from "jquery";
+import absoluteUrl from "next-absolute-url";
 
 export default ({ book }) => {
   if (!book) return <h1>Loading...</h1>;
@@ -63,11 +64,10 @@ export default ({ book }) => {
   }
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ req }) {
+  const { origin } = absoluteUrl(req, req.headers.host);
 
-  const url = new Request('/api/books')
-
-  const res = await fetch(url, {
+  const res = await fetch(origin + "/api/books", {
     method: "GET",
   }).then((res) => res.json());
   const books = await res;
@@ -84,12 +84,10 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params: { isbn } }) {
+export async function getStaticProps({ params: { isbn }, req }) {
+  const { origin } = absoluteUrl(req, req.headers.host);
 
-  const url = new Request("/api/book");
-
-
-  const res = await fetch(url, {
+  const res = await fetch(origin + "/api/book", {
     method: "POST",
     headers: {
       "content-Type": "application/json",
