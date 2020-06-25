@@ -12,6 +12,7 @@ export default function Index({ books }) {
     setTitle(e.target.value);
   };
 
+
   if(!books) return <h1>Loading</h1>
   if (books)
   var booksByFilter = books.books.filter(book => {

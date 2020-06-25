@@ -1,6 +1,7 @@
 import Layout from "../../../components/layout";
 import $ from "jquery";
 import absoluteUrl from "next-absolute-url";
+import { useRouter } from "next/router";
 
 export default ({ book }) => {
   if (!book) return <h1>Loading...</h1>;
@@ -64,27 +65,12 @@ export default ({ book }) => {
   }
 };
 
-export async function getStaticPaths({ req }) {
-  const { origin } = absoluteUrl(req, req.headers.host);
+export async function getServerSideProps(context) {
+  
+  const { params: { isbn }, req } = context
 
-  const res = await fetch(origin + "/api/books", {
-    method: "GET",
-  }).then((res) => res.json());
-  const books = await res;
+  console.log(context)
 
-  const paths = [];
-
-  await books.books.map((b) => {
-    paths.push({ params: { isbn: b.isbn } });
-  });
-
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params: { isbn }, req }) {
   const { origin } = absoluteUrl(req, req.headers.host);
 
   const res = await fetch(origin + "/api/book", {
