@@ -3,6 +3,8 @@ import $ from "jquery";
 import { useState } from "react";
 
 const CartClient = () => {
+
+
   const [status, setStatus] = useState(" ");
   const [cartOfBook, setCart] = useState(
     JSON.parse(window.localStorage.getItem("cart"))
@@ -10,9 +12,9 @@ const CartClient = () => {
 
   const [cardNumber, setCard] = useState("");
 
-  console.log(cartOfBook);
 
   const confirmShop = () => {
+
     var re16digit = /^\d{16}$/;
 
     if (re16digit.exec(cardNumber)) {
@@ -66,7 +68,7 @@ const CartClient = () => {
 
   return (
     <Layout>
-      {cartOfBook && typeof cartOfBook !== undefined ? (
+      {cartOfBook != null && typeof cartOfBook !== undefined ? (
         <div className="cart_">
           <ul className="list_cart">
             {cartOfBook.map((book, key) => (
