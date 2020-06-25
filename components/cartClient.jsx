@@ -10,6 +10,8 @@ const CartClient = () => {
 
   const [cardNumber, setCard] = useState("");
 
+  console.log(cartOfBook);
+
   const confirmShop = () => {
     var re16digit = /^\d{16}$/;
 
@@ -64,7 +66,7 @@ const CartClient = () => {
 
   return (
     <Layout>
-      {typeof cartOfBook !== undefined ? (
+      {cartOfBook && typeof cartOfBook !== undefined ? (
         <div className="cart_">
           <ul className="list_cart">
             {cartOfBook.map((book, key) => (
