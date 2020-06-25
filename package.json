@@ -1,0 +1,18 @@
+{
+  "name": "SimpleBookStoreOnline",
+  "version": "1.0.0",
+  "description": "Simple book store",
+  "main": "index.js",
+  "author": "Andromeda Labs School",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "build next",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.4.4",
+    "sass": "^1.26.9",
+    "swr": "^0.2.3"
+  }
+}

@@ -1,0 +1,34 @@
+.navbar  {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(1, 58, 104);
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.logo {
+    color: white;
+    font-size: 14pt;
+    font-style:arial;
+}
+
+.menu_navbar {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.menu_navbar li {
+    margin-right: 10px;
+    cursor: default;
+}
+
+
