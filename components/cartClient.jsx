@@ -64,7 +64,7 @@ const CartClient = () => {
 
   return (
     <Layout>
-      {cartOfBook.length > 0 ||  typeof cartOfBook !== undefined ? (
+      {typeof cartOfBook !== undefined ? (
         <div className="cart_">
           <ul className="list_cart">
             {cartOfBook.map((book, key) => (
