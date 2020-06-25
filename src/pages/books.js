@@ -1,8 +1,7 @@
 import useSWR from "swr";
 
-function Books(props) {
-  console.log(props);
-
+function Books() {
+  
   const fetcher = (url) =>
     fetch(url, { method: "GET" }).then((res) => res.json());
 

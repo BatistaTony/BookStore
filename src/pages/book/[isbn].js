@@ -69,8 +69,6 @@ export async function getServerSideProps(context) {
   
   const { params: { isbn }, req } = context
 
-  console.log(context)
-
   const { origin } = absoluteUrl(req, req.headers.host);
 
   const res = await fetch(origin + "/api/book", {
