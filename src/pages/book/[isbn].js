@@ -64,7 +64,10 @@ export default ({ book }) => {
 };
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:3000/api/books", {
+
+  const url = new Request('/api/books')
+
+  const res = await fetch(url, {
     method: "GET",
   }).then((res) => res.json());
   const books = await res;
@@ -82,7 +85,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { isbn } }) {
-  const res = await fetch("http://localhost:3000/api/book", {
+
+  const url = new Request("/api/book");
+
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       "content-Type": "application/json",

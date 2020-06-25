@@ -40,7 +40,10 @@ export default function Index({ books }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/books").then((res) =>
+
+  const url  = new Request('/api/books')
+
+  const res = await fetch(url).then((res) =>
     res.json()
   );
 
