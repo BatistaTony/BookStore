@@ -2,18 +2,26 @@ import Layout from "../../components/layout";
 import Book from "./../../components/book";
 import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
+import { IBook } from "../../components/types";
+import { NextApiRequest } from "next";
 
-export default function Index({ books }) {
-  const [title, setTitle] = useState("");
+interface IProps {
+  books: Array<IBook>;
+}
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setTitle(e.target.value);
+export default function Index({ books }: IProps) {
+  const [title, setTitle] = useState<string>("");
+
+  const AllBooks: Array<IBook> = books;
+
+  const handleChange = (event: any) => {
+    event.preventDefault();
+    setTitle(event.target.value);
   };
 
   if (!books) return <h1>Loading</h1>;
   if (books)
-    var booksByFilter = books.books.filter((book) => {
+    var booksByFilter = AllBooks.filter((book): IBook | any => {
       const regex = new RegExp(`${title}`, "gi");
       return book.title.match(regex);
     });
@@ -40,12 +48,16 @@ export default function Index({ books }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
+interface IServerProps {
+  req: NextApiRequest;
+}
+
+export async function getServerSideProps({ req }: IServerProps) {
   const { origin } = await absoluteUrl(req, req.headers.host);
 
   const res = await fetch(origin + "/api/books").then((res) => res.json());
 
-  const books = res;
+  const books: Array<IBook> = res;
 
   return {
     props: { books },

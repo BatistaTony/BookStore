@@ -1,18 +1,20 @@
 import Layout from "../../../components/layout";
 import $ from "jquery";
 import absoluteUrl from "next-absolute-url";
-import { useRouter } from "next/router";
+import { IBook } from "../../../components/types";
+import { NextPageContext } from "next";
 
-export default ({ book }) => {
+interface IProps {
+  book: IBook;
+}
+
+export default ({ book }: IProps) => {
   if (!book) return <h1>Loading...</h1>;
   if (book && typeof book !== undefined) {
     const dateBook = new Date(book.published);
-    const dateInString =
-      parseInt(dateBook.getDate() + 1) +
-      "/" +
-      dateBook.getMonth() +
-      "/" +
-      dateBook.getFullYear();
+    const dateToString = `${
+      dateBook.getDate() + 1
+    }/${dateBook.getMonth()}/${dateBook.getFullYear()}`;
 
     const AddtoCart = async () => {
       const cart = JSON.parse(localStorage.getItem("cart"));
@@ -46,7 +48,7 @@ export default ({ book }) => {
                 <h5 className="price_book">$ {book.price}</h5>
                 <p className="sing_t">{book.pages} pages</p>
                 <p className="sing_t">Published by {book.publisher}</p>
-                <p className="sing_t">Published in {dateInString}</p>
+                <p className="sing_t">Published in {dateToString}</p>
               </div>
 
               <button className="btn_buy" onClick={AddtoCart}>
@@ -65,9 +67,11 @@ export default ({ book }) => {
   }
 };
 
-export async function getServerSideProps(context) {
-  
-  const { params: { isbn }, req } = context
+export async function getServerSideProps(context: any) {
+  const {
+    params: { isbn },
+    req,
+  } = context;
 
   const { origin } = absoluteUrl(req, req.headers.host);
 
@@ -79,7 +83,7 @@ export async function getServerSideProps(context) {
     body: JSON.stringify({ isbn: isbn }),
   }).then((res) => res.json());
 
-  const book = await res;
+  const book: IBook = await res;
 
   return {
     props: { book },
