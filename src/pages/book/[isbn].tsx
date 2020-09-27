@@ -8,7 +8,7 @@ interface IProps {
   book: IBook;
 }
 
-export default ({ book }: IProps) => {
+export default function Book({ book }: IProps) {
   if (!book) return <h1>Loading...</h1>;
   if (book && typeof book !== undefined) {
     const dateBook = new Date(book.published);
@@ -65,7 +65,7 @@ export default ({ book }: IProps) => {
       </Layout>
     );
   }
-};
+}
 
 export async function getServerSideProps(context: any) {
   const {
